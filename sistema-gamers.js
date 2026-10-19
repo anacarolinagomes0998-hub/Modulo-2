@@ -16,12 +16,12 @@ function mostrarMenu() {
 function mostraEquipe() {
     if (time.length === 0) {
         return;
-}
+    }
 
 for (let i = 0; i < time.length; i++) {
      let jogador = time[i];
-     console.log((i + 1) + " . " + jogador.nome + " | "Função: " + jogador.funcao + "| Pontuação: " + jogador.pontuacao ");
-}
+     console.log(`${i + 1} . ${jogador.nome} | Função: ${jogador.funcao} | Pontuação: ${jogador.pontuacao}`);
+    }
 }
 
 function cadastrarJogador() {
