@@ -35,6 +35,5 @@ while (continuar === true) {
         continuar = false;
     } else {
         console.log("Opção inválida. Tente novamente.");
-
-
+    }
 }
