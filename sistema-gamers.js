@@ -4,26 +4,46 @@ let time = [];
 let continuar = true;
 
 function mostrarMenu() {
+    console.log("\n============");
+    console.log("-------Sistema de Gamers-------");
     console.log("1 - Cadastrar");
     console.log("2 - Deletar");
-    console.log("3 - Mostrar equipe");
-    console.log("4 - Sair");
-    console.log("\n");
+    console.log("3 - Mostrar Equipe");
+    console.log("4 - Calcular Média da Equipe");
+    console.log("5 - Sair");
 }
 
 function mostraEquipe() {
-    console.log("------------------------");
-    console.log("Seu time atual é: ", time);
-    console.log("------------------------");
+    if (time.length === 0) {
+        return;
+}
+
+for (let i = 0; i < time.length; i++) {
+     let jogador = time[i];
+     console.log((i + 1) + " . " + jogador.nome + " | "Função: " + jogador.funcao + "| Pontuação: " + jogador.pontuacao ");
+}
 }
 
 function cadastrarJogador() {
     let nomeJogador = prompt("Digite o nome do jogador (ou 'sair'): ");
+    let funcaoJogador = prompt("Digite a função do jogador: ");
+    let pontuacaoJogador = Number(prompt("Digite a pontuação: "));
 
-        time.push(nomeJogador);
+    if(isNaN(pontuacaoJogador)) {
+        conslole.log("Pontuação inválida. Por favor, insira um número.");
+        return;
+    } else {
+        let recruta = {
+            nome: nomeJogador,
+            funcao: funcaoJogador,
+            pontuacao: pontuacaoJogador,
+        };
+
+
+        time.push({ nome: nomeJogador, funcao: funcaoJogador, pontuacao: pontuacaoJogador });
         console.log("Jogador " + nomeJogador + "foi cadastrado com sucesso");
-        console.log("--------------------------------");
     }
+}
 
     function deletarJogador() {
          if (time.length === 0) {
@@ -32,17 +52,42 @@ function cadastrarJogador() {
         }
 
         let nomeDeletar = prompt("Digite o nome do jogador que deseja deletar: ");
-        let index = time.indexOf(nomeDeletar);
+        let indexDeletado = -1;
 
-        if (index == -1) {
+        for (let i = 0; i < time.length; i++) {
+
+            if (time[i].nome === nomeDeletar) {
+                indexDeletado = i;
+                break;
+            }
+        }
+
+        if (indexDeletado == -1) {
             console.log("Jogador não encontrado.");
             return;
         }
 
         time.splice(index, 1);
         console.log("Jogador foi deletado com sucesso.");
-        console.log("--------------------------------");
     }
+
+    function calcularMedia() {
+        if (time.length === 0) {
+            console.log("Não há jogadores cadastrados para calcular a média.");
+            return;
+        }
+
+        let totalPontos = 0;
+
+        for (let i = 0; i < time.length; i++) {
+            totalPontos = totalPontos + time[i].pontuacao;
+        }
+
+        let media = totalPontos / time.length;
+
+        console.log("O time possui uma média de pontos de: ", mediaPontos);
+    }
+
 
 while (continuar === true) {
     mostrarMenu();
@@ -55,8 +100,10 @@ while (continuar === true) {
     } else if (opcao === '3') {
         mostraEquipe();
     } else if (opcao === '4') {
+        calcularMedia();
+    } else if (opcao === '5') {
         continuar = false;
-    } 
+    }
     else {
         console.log("Opção inválida. Tente novamente.");
     }
