@@ -10,7 +10,8 @@ function mostrarMenu() {
     console.log("2 - Deletar");
     console.log("3 - Mostrar Equipe");
     console.log("4 - Calcular Média da Equipe");
-    console.log("5 - Sair");
+    console.log("5 - Atualizar Pontos");
+    console.log("6 - Sair");
 }
 
 function mostraEquipe() {
@@ -30,7 +31,7 @@ function cadastrarJogador() {
     let pontuacaoJogador = Number(prompt("Digite a pontuação: "));
 
     if(isNaN(pontuacaoJogador)) {
-        conslole.log("Pontuação inválida. Por favor, insira um número.");
+        console.log("Pontuação inválida. Por favor, insira um número.");
         return;
     } else {
         let recruta = {
@@ -67,7 +68,7 @@ function cadastrarJogador() {
             return;
         }
 
-        time.splice(index, 1);
+        time.splice(indexDeletado, 1);
         console.log("Jogador foi deletado com sucesso.");
     }
 
@@ -85,9 +86,38 @@ function cadastrarJogador() {
 
         let media = totalPontos / time.length;
 
-        console.log("O time possui uma média de pontos de: ", mediaPontos);
+        console.log("O time possui uma média de pontos de: ", media);
     }
 
+
+function atualizarPontuacao() {
+    if (time.length === 0) {
+        console.log("Não há jogadores cadastrados para atualizar.");
+        return;
+    }
+
+    console.log("\n--- ATUALIZAÇÃO DE RANKING ---");
+    let nomeBusca = prompt("Qual jogador deseja atualizar? ");
+
+    for (let i = 0; i < time.length; i++) {
+        let jogadorAtual = time[i];
+
+        if (jogadorAtual.nome === nomeBusca) {
+            let pontosNovos = Number(prompt("Quantos pontos ele ganhou hoje? "));
+
+            if (isNaN(pontosNovos)) {
+                console.log("Pontuação inválida. Por favor, insira um número.");
+                return;
+            }
+
+            jogadorAtual.pontuacao += pontosNovos;
+            console.log(`SUCESSO! A pontuação de ${jogadorAtual.nome} subiu para ${jogadorAtual.pontuacao} pontos!`);
+            return;
+        }
+    }
+
+    console.log("ERRO: Jogador não encontrado.");
+}
 
 while (continuar === true) {
     mostrarMenu();
@@ -102,6 +132,8 @@ while (continuar === true) {
     } else if (opcao === '4') {
         calcularMedia();
     } else if (opcao === '5') {
+        atualizarPontuacao();
+    } else if (opcao === '6') {
         continuar = false;
     }
     else {
